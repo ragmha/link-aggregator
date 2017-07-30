@@ -11,9 +11,15 @@
 
 import React, { Component } from 'react';
 import NavigationContainer from '../../containers/NavigationContainer';
+import LinkListContainer from '../../containers/LinkListContainer';
 
 export default class HomePage extends Component {
   render() {
-    return <NavigationContainer />;
+    return (
+      <div>
+        <NavigationContainer />
+        <LinkListContainer />
+      </div>
+    );
   }
 }
