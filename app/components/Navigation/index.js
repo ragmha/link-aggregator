@@ -7,6 +7,7 @@
 import React from 'react';
 
 import styles from './styles.css';
+import AppBar from '../AppBar';
 
 function Navigation({ topics, selectTopic }) {
   const topicNodes = topics.map(topic =>
@@ -16,6 +17,7 @@ function Navigation({ topics, selectTopic }) {
   );
   return (
     <div className={styles.navigation}>
+      <AppBar />
       {topicNodes}
     </div>
   );
