@@ -9,17 +9,17 @@ function setupDb() {
 
   const topic1 = {
     name: 'libraries',
-    description: 'links to useful open source libraries',
+    description: 'links to useful open source libraries'
   };
 
   const topic2 = {
     name: 'apps',
-    description: 'links to new and exciting apps',
+    description: 'links to new and exciting apps'
   };
 
   const topic3 = {
     name: 'news',
-    description: 'links to programming related news articles',
+    description: 'links to programming related news articles'
   };
 
   db.get('topics').push(topic1).value();
@@ -32,7 +32,7 @@ function setupDb() {
     topicName: topic1.name,
     id: uuid(),
     voteCount: 0,
-    voters: [],
+    voters: []
   };
 
   const link2 = {
@@ -41,7 +41,7 @@ function setupDb() {
     topicName: topic1.name,
     id: uuid(),
     voteCount: 0,
-    voters: [],
+    voters: []
   };
 
   const link3 = {
@@ -50,7 +50,7 @@ function setupDb() {
     topicName: topic2.name,
     id: uuid(),
     voteCount: 0,
-    voters: [],
+    voters: []
   };
 
   const link4 = {
@@ -59,7 +59,7 @@ function setupDb() {
     topicName: topic3.name,
     id: uuid(),
     voteCount: 0,
-    voters: [],
+    voters: []
   };
 
   db.get('links').push(link1).value();
@@ -82,12 +82,12 @@ module.exports = app => {
     // Request methods you wish to allow
     res.setHeader(
       'Access-Control-Allow-Methods',
-      'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+      'GET, POST, OPTIONS, PUT, PATCH, DELETE'
     );
     // Request headers you wish to allow
     res.setHeader(
       'Access-Control-Allow-Headers',
-      'X-Requested-With,content-type, Authorization',
+      'X-Requested-With,content-type, Authorization'
     );
 
     // Pass to next layer of middleware
@@ -117,7 +117,7 @@ module.exports = app => {
     const link = Object.assign({}, req.body, {
       id: uuid(),
       voteCount: 0,
-      voters: [],
+      voters: []
     });
     db.get('links').push(link).value();
     return res.send(link);
