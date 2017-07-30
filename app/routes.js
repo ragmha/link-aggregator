@@ -4,11 +4,11 @@
 // about the code splitting business
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 
-const errorLoading = (err) => {
+const errorLoading = err => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
 
-const loadModule = (cb) => (componentModule) => {
+const loadModule = cb => componentModule => {
   cb(null, componentModule.default);
 };
 
@@ -23,24 +23,29 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/HomePage'),
+          System.import('containers/NavigationContainer/reducer.js'),
+          System.import('containers/NavigationContainer/sagas')
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([component, reducer, sagas]) => {
+          injectReducer('navigationContainer', reducer.default);
+          injectSagas('navigationContainer', sagas.default);
           renderRoute(component);
         });
 
         importModules.catch(errorLoading);
-      },
-    }, {
+      }
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')
           .then(loadModule(cb))
           .catch(errorLoading);
-      },
-    },
+      }
+    }
   ];
 }

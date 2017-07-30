@@ -9,11 +9,11 @@
  * the linting exception.
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import React, { Component } from 'react';
+import NavigationContainer from '../../containers/NavigationContainer';
 
-export const HomePage = () =>
-  <h1>
-    <FormattedMessage {...messages.header} />
-  </h1>;
+export default class HomePage extends Component {
+  render() {
+    return <NavigationContainer />;
+  }
+}
