@@ -5,8 +5,7 @@ const uuid = require('uuid');
 function setupDb() {
   const db = low();
 
-  db.defaults({ topics: [], links: [] })
-    .value();
+  db.defaults({ topics: [], links: [] }).value();
 
   const topic1 = {
     name: 'libraries',
@@ -23,58 +22,73 @@ function setupDb() {
     description: 'links to programming related news articles',
   };
 
-
   db.get('topics').push(topic1).value();
   db.get('topics').push(topic2).value();
   db.get('topics').push(topic3).value();
 
-  db.get('links').push({
+  const link1 = {
     description: 'The very library we are working with now',
     url: 'https://github.com/facebook/react',
     topicName: topic1.name,
     id: uuid(),
     voteCount: 0,
     voters: [],
-  }).value();
-  db.get('links').push({
+  };
+
+  const link2 = {
     description: 'Some old videos',
     url: 'http://tagtree.io',
     topicName: topic1.name,
     id: uuid(),
     voteCount: 0,
     voters: [],
-  }).value();
+  };
 
-  db.get('links').push({
+  const link3 = {
     description: 'An app to manage your finances',
     url: 'https://22seven.com',
     topicName: topic2.name,
     id: uuid(),
     voteCount: 0,
     voters: [],
-  }).value();
-  db.get('links').push({
+  };
+
+  const link4 = {
     description: 'Go find some news yourself!',
     url: 'https://google.com',
     topicName: topic3.name,
     id: uuid(),
     voteCount: 0,
     voters: [],
-  }).value();
+  };
+
+  db.get('links').push(link1).value();
+
+  db.get('links').push(link2).value();
+
+  db.get('links').push(link3).value();
+
+  db.get('links').push(link4).value();
 
   return db;
 }
 
-module.exports = (app) => {
+module.exports = app => {
   const db = setupDb();
 
   app.use((req, res, next) => {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    );
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-Requested-With,content-type, Authorization',
+    );
 
     // Pass to next layer of middleware
     next();
@@ -87,9 +101,10 @@ module.exports = (app) => {
   });
 
   app.get('/api/topics/:name/links', (req, res) => {
-    const links = db.get('links').filter((l) =>
-      l.topicName === req.params.name
-    ).value();
+    const links = db
+      .get('links')
+      .filter(l => l.topicName === req.params.name)
+      .value();
     res.send(links);
   });
 
