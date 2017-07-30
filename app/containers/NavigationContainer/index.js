@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import selectNavigationContainer from './selectors';
 import Navigation from '../../components/Navigation';
-import { requestTopics, selectTopic } from './actions';
+import { requestTopics, selectTopic, toggleDrawer } from './actions';
 
 export class NavigationContainer extends Component {
   static propTypes = {
@@ -29,7 +29,8 @@ const mapStateToProps = selectNavigationContainer();
 function mapDispatchToProps(dispatch) {
   return {
     requestTopics: () => dispatch(requestTopics()),
-    selectTopic: topic => dispatch(selectTopic(topic))
+    selectTopic: topic => dispatch(selectTopic(topic)),
+    toggleDrawer: () => dispatch(toggleDrawer())
   };
 }
 
